@@ -1,6 +1,5 @@
 import { Button, Table, type TableProps, Typography } from "antd";
 import { useGetColors } from "./service/query/useGetColors";
-import { useToggle } from "../../hooks/useToggle";
 
 import "./style.css";
 
@@ -14,7 +13,6 @@ interface dataSource {
 
 export const Colors = () => {
   const { data } = useGetColors();
-  const { isOpen, open, close } = useToggle();
 
   const dataSource = data?.data.map((color) => ({
     createdAt: color.createdAt.slice(0, 10),
@@ -60,7 +58,6 @@ export const Colors = () => {
             fontSize: "18px",
             fontWeight: "500",
           }}
-          onClick={open}
           type="primary">
           Create Colors
         </Button>
