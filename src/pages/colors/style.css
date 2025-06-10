@@ -1,0 +1,5 @@
+.color__container__wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
