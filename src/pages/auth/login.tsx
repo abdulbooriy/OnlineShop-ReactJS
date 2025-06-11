@@ -1,10 +1,12 @@
 import React from "react";
-import type { FormProps } from "antd";
+import { Typography, type FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { useLogin } from "./service/useLogin";
 import "./login.css";
 import { saveState } from "../../config/storage";
 import { useNavigate } from "react-router-dom";
+
+const { Title } = Typography;
 
 type FieldType = {
   email: string;
@@ -25,35 +27,63 @@ export const Login: React.FC = () => {
     });
   };
   return (
-    <div className="wrapper_login">
-      <Form
-        name="basic"
-        layout="vertical"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ width: 400 }}
-        onFinish={onFinish}
-      >
-        <Form.Item<FieldType>
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
-        </Form.Item>
+    <section className="w-full min-h-screen flex justify-center items-center">
+      <div className="max-w-[500px] w-full bg-text-primary shadow rounded-2xl p-4">
+        <Title
+          className="text-center"
+          style={{ fontFamily: "Inter" }}
+          level={3}>
+          Login
+        </Title>
+        <Form
+          name="basic"
+          onFinish={onFinish}
+          autoComplete="off"
+          layout="vertical"
+          style={{ paddingTop: "10px" }}>
+          <Form.Item<FieldType>
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: "Please input your Email!" }]}
+            style={{ fontWeight: "600" }}>
+            <Input
+              type="email"
+              style={{ height: "45px" }}
+              placeholder="Enter your Email"
+            />
+          </Form.Item>
 
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item<FieldType>
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+            style={{ fontWeight: "600" }}>
+            <Input.Password
+              type="password"
+              style={{ height: "45px" }}
+              placeholder="Enter your Password"
+            />
+          </Form.Item>
 
-        <Button loading={isPending} type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form>
-    </div>
+          <Form.Item label={null}>
+            <Button
+              type="primary"
+              loading={isPending}
+              htmlType="submit"
+              className="w-full rounded-lg text-text-primary transition-all"
+              style={{
+                backgroundColor: "#00727d",
+                borderColor: "#00727d",
+                height: "45px",
+                fontSize: "16px",
+                fontFamily: "Inter",
+                fontWeight: "500",
+              }}>
+              Sign In
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </section>
   );
 };

@@ -1,11 +1,12 @@
-import { Select } from "antd";
 import { useGetTypes } from "../service/query/useGetTypes";
 import type { FormProps } from "antd";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select, Typography } from "antd";
 import { useCreateCategory } from "../service/mutation/useCreateCategory";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useUpdateCategory } from "../service/mutation/useUpdateCategory";
+
+const { Title } = Typography;
 
 type FieldType = {
   name: string;
@@ -79,43 +80,45 @@ export const CategoryForm = ({ closeModal, defaultValue }: Props) => {
     value: item.id,
     label: <span>{item.name}</span>,
   }));
+
   return (
-    <Form
-      form={form}
-      name="basic"
-      layout="vertical"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ width: 600, margin: "0 auto" }}
-      onFinish={onFinish}
-    >
-      <Form.Item<FieldType>
-        label="Name"
-        name="name"
-        rules={[{ required: true, message: "Please input your username!" }]}
-      >
-        <Input />
-      </Form.Item>
+    <div>
+      <Title level={4}>Create Categoryes</Title>
+      <Form form={form} name="basic" layout="vertical" onFinish={onFinish}>
+        <Form.Item<FieldType>
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Please input Category Name!" }]}>
+          <Input placeholder="Enter Category Name" style={{ height: "40px" }} />
+        </Form.Item>
 
-      <Form.Item<FieldType>
-        label="Type"
-        name="type"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Select
-          disabled={defaultValue ? true : false}
-          placeholder="Type"
-          options={typeList}
-        />
-      </Form.Item>
+        <Form.Item<FieldType>
+          label="Type"
+          name="type"
+          rules={[{ required: true, message: "Please input your password!" }]}>
+          <Select
+            disabled={defaultValue ? true : false}
+            placeholder="Type"
+            options={typeList}
+            style={{ height: "40px" }}
+          />
+        </Form.Item>
 
-      <Button
-        loading={isPending || isPending2}
-        type="primary"
-        htmlType="submit"
-      >
-        Submit
-      </Button>
-    </Form>
+        <Button
+          loading={isPending || isPending2}
+          type="primary"
+          htmlType="submit"
+          style={{
+            width: "100%",
+            height: "40px",
+            fontSize: "18px",
+            fontFamily: "Inter",
+          }}>
+          {
+            defaultValue ? "Update" : "Create"
+          }
+        </Button>
+      </Form>
+    </div>
   );
 };

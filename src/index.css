@@ -1,9 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import "tailwindcss";
+
+@font-face {
+  font-family: Inter;
+  src: url("../src/shared/fonts/Inter-VariableFont_opsz\,wght.ttf");
 }
 
-body {
-  font-family: sans-serif;
+.container {
+  width: 100%;
+  max-width: 1340px;
+}
+
+@theme {
+  --color-text-primary: #fff;
 }

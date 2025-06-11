@@ -5,7 +5,7 @@ import { Login } from "./pages/auth/login";
 
 function App() {
   return (
-    <>
+    <div className="bg-[#f8f8f8]">
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/app" element={<MainLayout />}>
@@ -19,7 +19,7 @@ function App() {
           ))}
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

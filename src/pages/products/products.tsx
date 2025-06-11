@@ -1,7 +1,12 @@
-import { Button, Table, type TableProps } from "antd";
+import { Button, Modal, Table, type TableProps, Typography } from "antd";
 import { useGetProducts } from "./service/query/useGetProducts";
+import { useToggle } from "../../hooks/useToggle";
+import { ProductForm } from "./components/product-form";
+
+const { Title } = Typography;
 
 interface dataSource {
+  id: string;
   name?: string;
   price?: number;
   description?: string;
@@ -16,14 +21,14 @@ interface dataSource {
 
 export const Products = () => {
   const { data } = useGetProducts();
-
-  console.log(data);
-
-  const dataSource = data?.map(() => ({
-    name: 0,
-  }));
+  const { isOpen, open, close } = useToggle();
 
   const columns: TableProps<dataSource>["columns"] = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
     {
       title: "Name",
       dataIndex: "name",
@@ -71,7 +76,7 @@ export const Products = () => {
       title: "Action",
       render: () => {
         return (
-          <div>
+          <div className="flex gap-2.5">
             <Button>Delete</Button>
             <Button>Edit</Button>
           </div>
@@ -81,7 +86,26 @@ export const Products = () => {
   ];
   return (
     <div>
-      <Table<dataSource> dataSource={dataSource} columns={columns} />
+      <div className="flex justify-between pb-5">
+        <Title level={3}>Product Management</Title>
+        <Button
+          onClick={open}
+          style={{
+            height: "40px",
+            fontSize: "18px",
+            fontWeight: "500",
+          }}
+          type="primary">
+          Add Products
+        </Button>
+      </div>
+      <Modal footer={false} onCancel={close} open={isOpen}>
+        <ProductForm />
+      </Modal>
+      <Modal footer={false} onCancel={close} open={isOpen}>
+        <ProductForm />
+      </Modal>
+      <Table<dataSource> columns={columns} />
     </div>
   );
 };

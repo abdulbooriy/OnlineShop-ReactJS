@@ -13,11 +13,10 @@ import React from "react";
 import { useDeleteCategory } from "./service/mutation/useDeleteCategory";
 import { useQueryClient } from "@tanstack/react-query";
 
-import "./style.css";
-
 const { Title } = Typography;
 
 interface dataSource {
+  id?: string;
   title?: string;
   dataIndex?: string;
   type?: string;
@@ -38,12 +37,14 @@ export const Categoryes = () => {
     name: item.name,
     type: item.type.name,
     key: item.id,
+    id: item.id,
   }));
 
   const editContent = (el: dataSource) => {
     setInitialData(el);
     open2();
   };
+
   const { mutate } = useDeleteCategory();
   const client = useQueryClient();
 
@@ -58,26 +59,31 @@ export const Categoryes = () => {
 
   const columns: TableProps<dataSource>["columns"] = [
     {
-      title: "CreatedAt",
-      dataIndex: "createdAt",
-      key: "createdAt",
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
     },
-
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
     },
     {
+      title: "CreatedAt",
+      dataIndex: "createdAt",
+      key: "createdAt",
+    },
+
+    {
       title: "Action",
       render: (data: dataSource) => {
         return (
-          <div>
+          <div className="flex gap-2.5">
             <Button onClick={() => deleteItems(data.key as string)}>
               Delete
             </Button>
@@ -90,17 +96,20 @@ export const Categoryes = () => {
 
   return (
     <div>
-      <div className="category__container__wrapper">
-        <Title level={3}>Categoryes Management</Title>
+      <div className="flex justify-between pb-5">
+        <Title style={{ fontFamily: "Inter" }} level={3}>
+          Categoryes Management
+        </Title>
         <Button
           style={{
             height: "40px",
             fontSize: "18px",
             fontWeight: "500",
+            fontFamily: "Inter",
           }}
           onClick={open}
           type="primary">
-          Create Categoryes
+          Add Categoryes
         </Button>
       </div>
       <Modal footer={false} onCancel={close} open={isOpen}>

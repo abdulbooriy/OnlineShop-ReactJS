@@ -1,8 +1,6 @@
 import { Button, Table, type TableProps, Typography } from "antd";
 import { useGetColors } from "./service/query/useGetColors";
 
-import "./style.css";
-
 const { Title } = Typography;
 
 interface dataSource {
@@ -40,7 +38,7 @@ export const Colors = () => {
       title: "Action",
       render: () => {
         return (
-          <div>
+          <div className="flex gap-2.5">
             <Button>Delete</Button>
             <Button>Edit</Button>
           </div>
@@ -50,7 +48,7 @@ export const Colors = () => {
   ];
   return (
     <div>
-      <div className="color__container__wrapper">
+      <div className="flex justify-between pb-5">
         <Title level={3}>Color Management</Title>
         <Button
           style={{
@@ -59,7 +57,7 @@ export const Colors = () => {
             fontWeight: "500",
           }}
           type="primary">
-          Create Colors
+          Add Colors
         </Button>
       </div>
       <Table<dataSource> dataSource={dataSource} columns={columns} />
