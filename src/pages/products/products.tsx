@@ -1,5 +1,5 @@
 import { Button, Modal, Table, type TableProps, Typography } from "antd";
-import { useGetProducts } from "./service/query/useGetProducts";
+// import { useGetProducts } from "./service/query/useGetProducts";
 import { useToggle } from "../../hooks/useToggle";
 import { ProductForm } from "./components/product-form";
 
@@ -20,7 +20,7 @@ interface dataSource {
 }
 
 export const Products = () => {
-  const { data } = useGetProducts();
+  // const { data } = useGetProducts();
   const { isOpen, open, close } = useToggle();
 
   const columns: TableProps<dataSource>["columns"] = [
