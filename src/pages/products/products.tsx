@@ -1,5 +1,5 @@
 import { Button, Modal, Table, type TableProps, Typography } from "antd";
-// import { useGetProducts } from "./service/query/useGetProducts";
+import { useGetProducts } from "./service/query/useGetProducts";
 import { useToggle } from "../../hooks/useToggle";
 import { ProductForm } from "./components/product-form";
 
@@ -12,16 +12,26 @@ interface dataSource {
   description?: string;
   count?: number;
   skidka?: number;
-  categoryId?: string;
-  userId?: string;
   createdAt?: string;
   img?: string;
   key?: string;
 }
 
 export const Products = () => {
-  // const { data } = useGetProducts();
+  const { data } = useGetProducts();
   const { isOpen, open, close } = useToggle();
+
+  const dataSource: dataSource[] = data?.map((product: dataSource) => ({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    description: product.description,
+    count: product.count,
+    skidka: product.skidka,
+    createdAt: product.createdAt,
+    img: product.img,
+    key: product.id,
+  }));
 
   const columns: TableProps<dataSource>["columns"] = [
     {
@@ -58,16 +68,6 @@ export const Products = () => {
       key: "skidka",
     },
     {
-      title: "UserId",
-      dataIndex: "userId",
-      key: "userId",
-    },
-    {
-      title: "CategoryId",
-      dataIndex: "categoryId",
-      key: "categoryId",
-    },
-    {
       title: "CreatedAt",
       dataIndex: "createdAt",
       key: "createdAt",
@@ -102,10 +102,7 @@ export const Products = () => {
       <Modal footer={false} onCancel={close} open={isOpen}>
         <ProductForm />
       </Modal>
-      <Modal footer={false} onCancel={close} open={isOpen}>
-        <ProductForm />
-      </Modal>
-      <Table<dataSource> columns={columns} />
+      <Table<dataSource> dataSource={dataSource} columns={columns} />
     </div>
   );
 };

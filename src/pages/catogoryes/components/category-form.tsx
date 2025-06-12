@@ -5,6 +5,7 @@ import { useCreateCategory } from "../service/mutation/useCreateCategory";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useUpdateCategory } from "../service/mutation/useUpdateCategory";
+import toast from "react-hot-toast";
 
 const { Title } = Typography;
 
@@ -41,7 +42,12 @@ export const CategoryForm = ({ closeModal, defaultValue }: Props) => {
         {
           onSuccess: () => {
             clinet.invalidateQueries({ queryKey: ["categoryes"] });
+            toast.success("Category is successfully updated !");
             closeModal();
+          },
+
+          onError: () => {
+            toast.error("An error occured while updating the Category !");
           },
         }
       );
@@ -50,12 +56,15 @@ export const CategoryForm = ({ closeModal, defaultValue }: Props) => {
       { name: data.name, typeId: data.type },
       {
         onSuccess: () => {
-          clinet.invalidateQueries({ queryKey: ["categoryes"] });
+          clinet
+            .invalidateQueries({ queryKey: ["categoryes"] })
+            .then(() => toast.success("Category is successfully created !"));
           closeModal();
           form.resetFields();
         },
         onError: (error) => {
           form.setFields([{ name: "name", errors: [error.message] }]);
+          toast.error("An error occured while creating a new Category !");
         },
       }
     );
@@ -114,9 +123,7 @@ export const CategoryForm = ({ closeModal, defaultValue }: Props) => {
             fontSize: "18px",
             fontFamily: "Inter",
           }}>
-          {
-            defaultValue ? "Update" : "Create"
-          }
+          {defaultValue ? "Update" : "Create"}
         </Button>
       </Form>
     </div>

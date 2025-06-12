@@ -1,17 +1,11 @@
-import {
-  Button,
-  message,
-  Modal,
-  Table,
-  type TableProps,
-  Typography,
-} from "antd";
+import { Button, Modal, Table, type TableProps, Typography } from "antd";
 import { useGetCategoryes } from "./service/query/useGetCategoryes";
 import { useToggle } from "../../hooks/useToggle";
 import { CategoryForm } from "./components/category-form";
 import React from "react";
 import { useDeleteCategory } from "./service/mutation/useDeleteCategory";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const { Title } = Typography;
 
@@ -51,8 +45,12 @@ export const Categoryes = () => {
   const deleteItems = (id: string) => {
     mutate(id, {
       onSuccess: () => {
-        client.invalidateQueries({ queryKey: ["categoryes"] });
-        message.success("success");
+        client
+          .invalidateQueries({ queryKey: ["categoryes"] })
+          .then(() => toast.success("Category is successfully deleted !"));
+      },
+      onError: () => {
+        toast.error("An error occured while deleting the Category !");
       },
     });
   };
