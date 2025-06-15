@@ -39,8 +39,8 @@ export const Colors = () => {
       render: () => {
         return (
           <div className="flex gap-2.5">
-            <Button>Delete</Button>
-            <Button>Edit</Button>
+            <Button danger>Delete</Button>
+            <Button type="primary" >Edit</Button>
           </div>
         );
       },

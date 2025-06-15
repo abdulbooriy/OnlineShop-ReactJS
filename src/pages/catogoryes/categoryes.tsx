@@ -82,10 +82,10 @@ export const Categoryes = () => {
       render: (data: dataSource) => {
         return (
           <div className="flex gap-2.5">
-            <Button onClick={() => deleteItems(data.key as string)}>
+            <Button danger onClick={() => deleteItems(data.key as string)}>
               Delete
             </Button>
-            <Button onClick={() => editContent(data)}>Edit</Button>
+            <Button type="primary" onClick={() => editContent(data)}>Edit</Button>
           </div>
         );
       },
