@@ -18,7 +18,7 @@ export type FieldType = {
   categoryId: string;
   userId: string;
   discountedPrice: number;
-  avgStars: number;
+  avgStars: string;
   totalLikes: number;
   colors: string[];
 };
@@ -40,7 +40,7 @@ export const ProductForm = () => {
         count: Number(data.count),
         skidka: Number(data.skidka),
         discountedPrice: Number(data.discountedPrice),
-        avgStars: Number(data.avgStars),
+        avgStars: data.avgStars,
         totalLikes: Number(data.totalLikes),
         colors: data.colors.map((name) => ({ name })),
       },

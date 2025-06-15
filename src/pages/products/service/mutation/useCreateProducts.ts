@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { request } from "../../../../config/request";
 import toast from "react-hot-toast";
-import type { Product } from "../../types";
+import type { CreateProductDto } from "../../types";
 
 export const useCreateProducts = () => {
   return useMutation({
-    mutationFn: (data: Product) =>
+    mutationFn: (data: CreateProductDto) =>
       request
         .post("/products", data)
         .then((res) => res.data)
